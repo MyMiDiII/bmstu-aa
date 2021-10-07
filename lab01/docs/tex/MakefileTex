@@ -4,10 +4,9 @@ texReport : build move
 
 build : report.tex
 	pdflatex -shell-escape report.tex
+	bibtex report
 	pdflatex -shell-escape report.tex
-	# bibtex report
-	# pdflatex report.tex
-	# pdflatex report.tex
+	pdflatex -shell-escape report.tex
 
 move : report.pdf
 	-mkdir ../pdf           
