@@ -19,17 +19,12 @@
 
 % Titles
 \usepackage{titlesec}
-\titleformat{\section}
-	{\normalsize\bfseries}
-	{\thesection}
-	{1em}{}
-\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
-\titlespacing*{\section}{\parindent}{20pt}{8pt}
-\titlespacing*{\subsection}{\parindent}{*4}{*4}
-\usepackage{titlesec}
-\titleformat{\chapter}{\LARGE\bfseries}{\thechapter}{10pt}{\LARGE\bfseries}
-\titleformat{\section}{\Large\bfseries}{\thesection}{10pt}{\Large\bfseries}
-    
+\titlespacing*{\chapter}{\parindent}{-30pt}{21pt}
+\titlespacing*{\section}{\parindent}{*2}{*2}
+\titlespacing*{\subsection}{\parindent}{*2}{*2}
+\titleformat{\chapter}{\LARGE\bfseries}{\thechapter}{18pt}{\LARGE\bfseries}
+\titleformat{\section}{\Large\bfseries}{\thesection}{16pt}{\Large\bfseries}
+
 % Spacing
 \usepackage{setspace}
 \usepackage{indentfirst}
@@ -62,7 +57,7 @@
 % Lists
 \usepackage{enumitem}
 \renewcommand{\labelitemi}{$-$}
-\setlist{nosep, leftmargin=\parindent}
+\setlist{nosep, leftmargin=\parindent, wide}
 
 % Comments
 \usepackage{comment}
@@ -71,3 +66,6 @@
 \usepackage{amstext}
 \usepackage{ulem}
 \renewcommand{\ULdepth}{1.5pt}
+
+% Formulas
+\usepackage{amsmath}
