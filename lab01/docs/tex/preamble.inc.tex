@@ -42,17 +42,19 @@
 
 % Images
 \usepackage{graphicx}
-\newcommand{\img}[3] {
+\newcommand{\scheme}[4] {
 	\begin{figure}[h!]
-		\center{\includegraphics[height=#1]{../data/#2}}
-		\caption{#3}
-		\label{img:#2}
+		\center{
+            \includegraphics[height=#1]{../data/schemes/#2}
+            \caption{#3}
+            \label{scheme:#4}
+        }
 	\end{figure}
 }
 
 % Captions
 \usepackage[figurename=Рисунок,labelsep=endash,
-            justification=raggedright]{caption}
+            justification=centering]{caption}
 
 % Lists
 \usepackage{enumitem}
