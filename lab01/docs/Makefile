@@ -6,7 +6,7 @@ main : ./tex/MakefileTex
 	cd ./tex && make -f MakefileTex
 
 open :
-	okular pdf/report.pdf
+	xdg-open pdf/report.pdf
 
 clear :
 	rm -rf ./pdf/ ./out/
