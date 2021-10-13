@@ -28,9 +28,8 @@ def printMenu():
     print()
     print("Выбор:")
 
-def func1():
-    # ! поменять
-    print("ЗАГОЛОВОК")
+def singleExperiment():
+    print("ЕДИНИЧНЫЙ ЭКСПЕРИМЕНТ")
     str1 = input("Первая строка: ")
     str2 = input("Вторая строка: ")
     print()
@@ -38,7 +37,9 @@ def func1():
     print("Расстояния Левенштейна")
     print("Рекурсивный алгоритм: ", recursiveLevenstein(str1, str2))
     # ! в схему присваивание расстояния ячейке
-    print("Матричный алгоритм: ", matrixLevenstein(str1, str2))
+    matrRes, matr = matrixLevenstein(str1, str2)
+    print("Матричный алгоритм: ", matrRes)
+    printDistMatrix(matr, str1, str2)
 
 
 def func2():
@@ -55,7 +56,7 @@ def getAnswer():
 
 if __name__ == "__main__":
     printGreeting()
-    menuFuncs = [lambda: True, func1, func2, wrongAnswer]
+    menuFuncs = [lambda: True, singleExperiment, func2, wrongAnswer]
 
     answer = 1
     while answer:

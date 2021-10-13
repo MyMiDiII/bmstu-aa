@@ -1,5 +1,22 @@
 INF = -1
 
+def matrixInit(len1, len2):
+    matrix = [[i + j if i * j == 0 else INF for j in range(len2 + 1)]
+               for i in range(len1 + 1)]
+
+    return matrix
+
+def printDistMatrix(matr, str1, str2):
+    print(' ', 'ø', *list(str2), sep = '   ')
+    rightColumn = ['ø', *list(str1)]
+
+    for i in range(len(str1) + 1):
+        print(rightColumn[i], end = ' ')
+        for j in range(len(str2) + 1):
+            print('{:3d}'.format(matr[i][j]), end = '\n' 
+                                                    if j == len(str2) else ' ')
+
+
 def recursiveLevenstein(str1, str2):
     len1 = len(str1)
     len2 = len(str2)
@@ -18,13 +35,6 @@ def recursiveLevenstein(str1, str2):
     return dist
 
 
-def matrixInit(len1, len2):
-    matrix = [[i + j if i * j == 0 else INF for i in range(len1 + 1)]
-               for j in range(len2 + 1)]
-
-    return matrix
-
-
 def matrixLevenstein(str1, str2):
     len1 = len(str1)
     len2 = len(str2)
@@ -39,5 +49,5 @@ def matrixLevenstein(str1, str2):
             dist = min(dist, addDist + matr[i - 1][j - 1])
             matr[i][j] = dist
 
-    return dist
+    return dist, matr
 
