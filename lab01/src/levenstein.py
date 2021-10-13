@@ -51,3 +51,32 @@ def matrixLevenstein(str1, str2):
 
     return dist, matr
 
+
+def recursiveCacheLevenstein(str1, str2, matr):
+    len1 = len(str1)
+    len2 = len(str2)
+
+    if matr[len1][len2] == INF:
+        addDist = 0 if str1[-1] == str2[-1] else 1
+        dist = 1 + min(
+                       recursiveCacheLevenstein(str1, str2[:-1], matr),
+                       recursiveCacheLevenstein(str1[:-1], str2, matr),
+                   )
+        dist = min(
+                   dist,
+                   addDist
+                   + recursiveCacheLevenstein(str1[:-1], str2[:-1], matr),
+               )
+        matr[len1][len2] = dist
+    else:
+        dist = matr[len1][len2]
+
+    return dist
+
+
+def cacheLevenstein(str1, str2):
+    matr = matrixInit(len(str1), len(str2))
+
+    dist = recursiveCacheLevenstein(str1, str2, matr)
+
+    return dist

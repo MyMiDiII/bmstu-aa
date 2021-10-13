@@ -1,4 +1,5 @@
 from levenstein import *
+from dameraulevenstein import *
 
 def printInfo():
     print("Программа предоставляет интерфейс для поиска расстояний\n"
@@ -35,12 +36,13 @@ def singleExperiment():
     print()
     print("РЕЗУЛЬТАТЫ")
     print("Расстояния Левенштейна")
-    print("Рекурсивный алгоритм: ", recursiveLevenstein(str1, str2))
-    # ! в схему присваивание расстояния ячейке
+    print("Рекурсивный алгоритм:", recursiveLevenstein(str1, str2))
     matrRes, matr = matrixLevenstein(str1, str2)
-    print("Матричный алгоритм: ", matrRes)
+    print("Матричный алгоритм:", matrRes)
+    print("Рекурсивный алгоритм с кэшем:", cacheLevenstein(str1, str2))
     printDistMatrix(matr, str1, str2)
-
+    print("Расстояние Дамерау-Левенштейна")
+    print("Рекурсивный алгоритм:", recursiveDamerauLevenstein(str1, str2))
 
 def func2():
     print("func2")
