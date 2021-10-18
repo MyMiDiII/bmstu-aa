@@ -30,4 +30,59 @@
 
 \section{Листинги кода}
 
+В данном подразделе представлены листинги кода ранее описанных алгоритмов:
+\begin{itemize}[left=\parindent]
+    \item рекурсивный алгоритм поиска расстояния Левенштейна (листинг
+          \ref{lst:recLev});
+    \item матричный алгоритм поиска расстояния Левенштейна (листинги
+          \ref{lst:matInit}-\ref{lst:matLev});
+    \item рекурсивный алгоритм поиска расстояния Левенштейна с кэшем (листинги
+          \ref{lst:matInit}, \ref{lst:recCacheLevInit}-\ref{lst:recCacheLev});
+    \item рекурсивный алгоритм поиска расстояния Дамерау-Левенштейна (листинг
+          \ref{lst:recDamLev}).
+\end{itemize}
+
+\begin{lstinputlisting}[
+	caption={Реализация рекурсивного алгоритма поиска расстояния Левенштейна},
+	label={lst:recLev},
+	linerange={20-35}
+]{../../src/levenstein.py}
+\end{lstinputlisting}
+
+\begin{lstinputlisting}[
+	caption={Реализация инициализации матрицы},
+	label={lst:matInit},
+	linerange={3-7}
+]{../../src/levenstein.py}
+\end{lstinputlisting}
+
+\begin{lstinputlisting}[
+	caption={Реализация матричного алгоритма поиска расстояния Левенштейна},
+	label={lst:matLev},
+	linerange={38-52}
+]{../../src/levenstein.py}
+\end{lstinputlisting}
+
+\begin{lstinputlisting}[
+    caption={Реализация инициализации данных для рекурсивного алгоритма поиска
+             расстояния Левенштейна с кэшем},
+	label={lst:recCacheLevInit},
+	linerange={77-82}
+]{../../src/levenstein.py}
+\end{lstinputlisting}
+
+\begin{lstinputlisting}[
+	caption={Реализация рекурсивного алгоритма поиска расстояния Левенштейна с кэшем},
+	label={lst:recCacheLev},
+	linerange={55-74}
+]{../../src/levenstein.py}
+\end{lstinputlisting}
+
+\begin{lstinputlisting}[
+	caption={Реализация рекурсивного алгоритма поиска расстояния Дамерау-Левенштейна},
+	label={lst:recDamLev},
+	linerange={1-24}
+]{../../src/dameraulevenstein.py}
+\end{lstinputlisting}
+
 \section{Описание тестирования}
