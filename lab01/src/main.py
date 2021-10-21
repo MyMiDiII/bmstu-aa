@@ -52,7 +52,8 @@ def singleExperiment():
     print("Рекурсивный алгоритм с кэшем:", cacheLevenstein(str1, str2))
     printDistMatrix(matr, str1, str2)
     print("Расстояние Дамерау-Левенштейна")
-    print("Рекурсивный алгоритм:", recursiveDamerauLevenstein(str1, str2))
+    print("Рекурсивный алгоритм с кэшем:",
+           сacheDamerauLevenstein(str1, str2))
 
 
 def printTimeTable(lens, times):

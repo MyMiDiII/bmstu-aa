@@ -55,6 +55,7 @@ def matrixLevenstein(str1, str2):
 def recursiveCacheLevenstein(str1, str2, matr):
     len1 = len(str1)
     len2 = len(str2)
+    dist = 0
 
     if matr[len1][len2] == INF:
         addDist = 0 if str1[-1] == str2[-1] else 1
