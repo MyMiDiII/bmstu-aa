@@ -1,5 +1,11 @@
+import matplotlib.pyplot as plt
+
+from prettytable import PrettyTable
+
 from levenstein import *
 from dameraulevenstein import *
+from experiments import *
+
 
 def printInfo():
     print("Программа предоставляет интерфейс для поиска расстояний\n"
@@ -8,9 +14,11 @@ def printInfo():
           + "реализаций."
          )
 
+
 def printAuthor():
     print("АВТОР: Маслова Марина")
     print("ГРУППА: ИУ7-53Б")
+
 
 def printGreeting():
     print("РАССТОЯНИЕ ЛЕВЕНШТЕЙНА И ДАМЕРАУ-ЛЕВЕНШТЕЙНА")
@@ -18,6 +26,7 @@ def printGreeting():
     printInfo();
     print()
     printAuthor();
+
 
 def printMenu():
     print()
@@ -28,6 +37,7 @@ def printMenu():
     print("0 -- выход")
     print()
     print("Выбор:")
+
 
 def singleExperiment():
     print("ЕДИНИЧНЫЙ ЭКСПЕРИМЕНТ")
@@ -44,21 +54,50 @@ def singleExperiment():
     print("Расстояние Дамерау-Левенштейна")
     print("Рекурсивный алгоритм:", recursiveDamerauLevenstein(str1, str2))
 
-def func2():
-    print("func2")
+
+def printTimeTable(lens, times):
+    table = PrettyTable()
+    print("Таблица времени выполнения алгоритмов на разных длинах строк")
+    print("                  (время в наносекундах)")
+
+    table.field_names = ['Длина', 'Рекурсивный', 'Матричный', 'С кэшем']
+    for i in range(len(lens)):
+        table.add_row([lens[i], times[0][i], times[1][i], times[2][i]])
+
+    table.align = 'r'
+    print('     ', table.get_string().replace('\n', '\n      '))
+
+def massExperiments():
+    lens = [10, 30, 50, 70, 90, 110, 130, 150, 170]
+    funcs = [
+             recursiveLevenstein,
+             matrixLevenstein,
+             cacheLevenstein
+            ]
+    times = getTimes(funcs, lens)
+
+    printTimeTable(lens, times)
+    for algTime in times:
+        if None not in algTime:
+            plt.plot(lens, algTime)
+
+    plt.show()
+
 
 def wrongAnswer():
     print("Нет такого пунтка меню!")
     print("Попробуйте ещё раз!")
+
 
 def getAnswer():
     answer = input()
     answer = -1 if answer not in ("0", "1", "2") else int(answer)
     return answer
 
+
 if __name__ == "__main__":
     printGreeting()
-    menuFuncs = [lambda: True, singleExperiment, func2, wrongAnswer]
+    menuFuncs = [lambda: True, singleExperiment, massExperiments, wrongAnswer]
 
     answer = 1
     while answer:
