@@ -56,17 +56,19 @@ def singleExperiment():
            сacheDamerauLevenstein(str1, str2))
 
 
-def printTimeTable(lens, times):
+def printTable(lens, times, names, align=0):
     table = PrettyTable()
-    print("Таблица времени выполнения алгоритмов на разных длинах строк")
-    print("                  (время в наносекундах)")
-
-    table.field_names = ['Длина', 'Рекурсивный', 'Матричный', 'С кэшем']
+    table.field_names = names
     for i in range(len(lens)):
-        table.add_row([lens[i], times[0][i], times[1][i], times[2][i]])
+        table.add_row([lens[i]] + [col[i] for col in times])
 
     table.align = 'r'
-    print('     ', table.get_string().replace('\n', '\n      '))
+    print(
+        align * ' ',
+        table.get_string().replace('\n', '\n' + align * ' '),
+        sep=''
+        )
+
 
 def massExperiments():
     lens = [10, 30, 50, 70, 90, 110, 130, 150, 170]
@@ -75,13 +77,52 @@ def massExperiments():
              matrixLevenstein,
              cacheLevenstein
             ]
-    times = getTimes(funcs, lens)
+    timesLev = getTimes(funcs, lens)
 
-    printTimeTable(lens, times)
-    for algTime in times:
+    funcs = [
+            cacheLevenstein,
+            сacheDamerauLevenstein
+            ]
+    timesLevVSDam = getTimes(funcs, lens)
+
+    print()
+    names = ['Длина', 'Рекурсивный', 'Матричный', 'С кэшем']
+    print("Таблица времени выполнения разных реализаций алгоритма поиска")
+    print("        расстояния Левенштейна(время в наносекундах)")
+    printTable(lens, timesLev, names, 6)
+
+    print()
+    names = ['Длина', 'Левенштейн с кэшем', 'Дамерау-Левенштейн с кэшем']
+    print("Таблица времени выполнения алгоритмов поиска расстояний Левенштейна")
+    print("        и Дамераy-Левенштейна с кэшем (время в наносекундах)")
+    printTable(lens, timesLevVSDam, names, 4)
+
+    plt.figure(figsize=(7, 9))
+    plt.subplots_adjust(hspace=0.7)
+    plt.subplot(2, 1, 1)
+    labels = ['рекурсивный', 'матричный', 'с кэшем']
+    for i, algTime in enumerate(timesLev):
         if None not in algTime:
-            plt.plot(lens, algTime)
+            plt.plot(lens, algTime, label=labels[i])
+    plt.title("Сравнение реализаций алгоритма поиска расстояния Левенштейна\n")
+    plt.xlabel("Длина строк", fontsize=14)
+    plt.ylabel("Время, ns", fontsize=14)
+    plt.grid(True)
+    plt.legend()
 
+    plt.subplot(2, 1, 2)
+    labels = ['Левенштейн', 'Дамерау-Левенштейн']
+    for i, algTime in enumerate(timesLevVSDam):
+        if None not in algTime:
+            plt.plot(lens, algTime, label=labels[i])
+    plt.title("Сравнение времени выполнения поиска расстояния Левенштейна и"
+              + "\nпоиска расстояния Дамерау-Левенштейна\n")
+    plt.xlabel("Длина строк", fontsize=14)
+    plt.ylabel("Время, ns", fontsize=14)
+    plt.grid(True)
+    plt.legend()
+
+    plt.get_current_fig_manager().window.move(960, 0)
     plt.show()
 
 

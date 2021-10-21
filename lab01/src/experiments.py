@@ -28,16 +28,17 @@ def getTime(str1, str2, editDistance, num):
 
     return int(avgTime)
 
+
 def getTimes(funcs, lens):
     times = [[] for x in range(len(funcs))]
 
-    print("Идет подсчет. Пожалуйста, подождите...")
+    print("\nИдет подсчет времени. Пожалуйста, подождите...")
     for length in lens:
         print("Подсчет для длины =", length)
         str1, str2 = get2strings(length)
 
         for i, func in enumerate(funcs):
-            funcTime = (None if func == recursiveLevenstein and length > 9
+            funcTime = (None if func == recursiveLevenstein and length > 10
                             else getTime(str1, str2, func, 10))
             times[i].append(funcTime)
 
