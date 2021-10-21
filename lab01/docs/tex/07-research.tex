@@ -1,0 +1,22 @@
+\chapter{Исследовательская часть}
+
+\section{Результаты тестирования}
+
+В таблице \ref{tab:testRes} приведены результаты работы программы на тестах,
+описанных в таблице \ref{tab:tests}. В результате сравнения ожидаемого и
+полученного результата делаем вывод, что все тесты были пройдены.
+
+\begin{table}[h]
+	\begin{center}
+		\caption{\label{tab:testRes}Результаты тестирования}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			& & \multicolumn{2}{c|}{\bfseries Полученный результат}\\ \cline{3-4}
+			\bfseries Строка 1  & \bfseries Строка 2 &
+            \bfseries Левенштейн & \bfseries Дамерау-Левенштейн
+			\csvreader{../data/csv/tests.csv}{}
+			{\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
+			\\\hline
+		\end{tabular}
+	\end{center}
+\end{table}
