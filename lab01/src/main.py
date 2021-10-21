@@ -31,8 +31,8 @@ def printMenu():
 
 def singleExperiment():
     print("ЕДИНИЧНЫЙ ЭКСПЕРИМЕНТ")
-    str1 = input("Первая строка: ")
-    str2 = input("Вторая строка: ")
+    str1 = input("Первая строка: ").lower()
+    str2 = input("Вторая строка: ").lower()
     print()
     print("РЕЗУЛЬТАТЫ")
     print("Расстояния Левенштейна")
