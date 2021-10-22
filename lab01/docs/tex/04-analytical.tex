@@ -62,6 +62,7 @@
 
 Таким образом, для расчета расстояния Левенштейна между двумя строками $s_1$ и
 $s_2$ используется рекуррентная формула для расчета через подстроки:
+{\small
 \begin{equation}\label{eq11}
 D(s_1[1..i],s_2[1..j]) =
     \begin{cases}
@@ -75,7 +76,9 @@ D(s_1[1..i],s_2[1..j]) =
         \}
     \end{cases},
 \end{equation}
+}
 где величина $l(a, b)$ выражется формулой:
+{\small
 \begin{equation}\label{eq1.2}
 l(a, b) =
     \begin{cases}
@@ -83,6 +86,7 @@ l(a, b) =
         1, & \text{иначе}
     \end{cases}.
 \end{equation}
+}
 
 \subsection{Матричный алгоритм}
 
