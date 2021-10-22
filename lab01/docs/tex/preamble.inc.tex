@@ -52,6 +52,16 @@
 	\end{figure}
 }
 
+\newcommand{\img}[4] {
+	\begin{figure}[ht!]
+		\center{
+            \includegraphics[height=#1]{../data/img/#2}
+            \caption{#3}
+            \label{img:#4}
+        }
+	\end{figure}
+}
+
 % Captions
 \usepackage[figurename=Рисунок,labelsep=endash,
             justification=centering]{caption}

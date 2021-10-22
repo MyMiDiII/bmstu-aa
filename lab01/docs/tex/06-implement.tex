@@ -18,17 +18,18 @@
 
 \section{Средства реализации}
 
-% ! Ссылки на сайты!!!
-
 Для реализации данной лабораторной работы выбран интерпретируемый язык
-программирования высокого уровня Python, так как он позволяет реализовывать
-сложные задачи за кратчайшие сроки за счет простоты синтаксиса и наличия
-большого количества подключаемых библиотек. 
+программирования высокого уровня Python\cite{python}, так как он позволяет
+реализовывать сложные задачи за кратчайшие сроки за счет простоты синтаксиса и
+наличия большого количества подключаемых библиотек. 
 
-В качестве среды разработки выбран текстовый редактор vim c установленными
-плагинами автодополнения и поиска ошибок в процессе написания, так как он
-реализует быстрое перемещение по тексту программы и простое взаимодействие с
-командной строкой.
+В качестве среды разработки выбран текстовый редактор Vim\cite{vim} c
+установленными плагинами автодополнения и поиска ошибок в процессе написания,
+так как он реализует быстрое перемещение по тексту программы и простое
+взаимодействие с командной строкой.
+
+Замеры времени проводились при помощи функции process\_time\_ns из библиотеки
+time\cite{time}.
 
 \section{Листинги кода}
 
@@ -40,46 +41,63 @@
           \ref{lst:matInit}-\ref{lst:matLev});
     \item рекурсивный алгоритм поиска расстояния Левенштейна с кэшем (листинги
           \ref{lst:matInit}, \ref{lst:recCacheLevInit}-\ref{lst:recCacheLev});
-    \item рекурсивный алгоритм поиска расстояния Дамерау-Левенштейна (листинг
-          \ref{lst:recDamLev}).
+    \item рекурсивный алгоритм поиска расстояния Дамерау-Левенштейна с кэшем
+          (листинг \ref{lst:recDamLev}).
 \end{itemize}
 
+\noindent
+\begin{minipage}{\linewidth}
 \begin{lstinputlisting}[
 	caption={Реализация рекурсивного алгоритма поиска расстояния Левенштейна},
 	label={lst:recLev},
 	linerange={20-35}
 ]{../../src/levenstein.py}
 \end{lstinputlisting}
+\end{minipage}
 
+\noindent
+\begin{minipage}{\linewidth}
 \begin{lstinputlisting}[
 	caption={Реализация инициализации матрицы},
 	label={lst:matInit},
 	linerange={3-7}
 ]{../../src/levenstein.py}
 \end{lstinputlisting}
+\end{minipage}
 
+\noindent
+\begin{minipage}{\linewidth}
 \begin{lstinputlisting}[
 	caption={Реализация матричного алгоритма поиска расстояния Левенштейна},
 	label={lst:matLev},
 	linerange={38-52}
 ]{../../src/levenstein.py}
 \end{lstinputlisting}
+\end{minipage}
 
+\noindent
+\begin{minipage}{\linewidth}
 \begin{lstinputlisting}[
     caption={Реализация инициализации данных для рекурсивного алгоритма поиска
              расстояния Левенштейна с кэшем},
 	label={lst:recCacheLevInit},
-	linerange={77-82}
+	linerange={78-85}
 ]{../../src/levenstein.py}
 \end{lstinputlisting}
+\end{minipage}
 
+\noindent
+\begin{minipage}{\linewidth}
 \begin{lstinputlisting}[
 	caption={Реализация рекурсивного алгоритма поиска расстояния Левенштейна с кэшем},
 	label={lst:recCacheLev},
 	linerange={55-74}
 ]{../../src/levenstein.py}
 \end{lstinputlisting}
+\end{minipage}
 
+\noindent
+\begin{minipage}{\linewidth}
 \begin{lstinputlisting}[
     caption={Реализация рекурсивного алгоритма поиска расстояния
              Дамерау-Левенштейна с кэшем},
@@ -87,6 +105,7 @@
 	linerange={3-27}
 ]{../../src/dameraulevenstein.py}
 \end{lstinputlisting}
+\end{minipage}
 
 \section{Описание тестирования}
 
@@ -107,3 +126,12 @@
 		\end{tabular}
 	\end{center}
 \end{table}
+
+\clearpage
+
+\section{Вывод}
+
+В данном разделе были разработаны алгоритмы поиска расстояния Левенштейна:
+рекурсивный, матричный и рекурсивный с кэшем, --- и рекурсивный алгоритм
+с кэшем поиска расстояния Дамерау-Левенштейна. Также были разработаны
+функциональные тесты для проверки корректности реализаций.
