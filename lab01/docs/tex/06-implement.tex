@@ -37,10 +37,10 @@ time\cite{time}.
 \begin{itemize}[left=\parindent]
     \item рекурсивный алгоритм поиска расстояния Левенштейна (листинг
           \ref{lst:recLev});
-    \item матричный алгоритм поиска расстояния Левенштейна (листинги
-          \ref{lst:matInit}-\ref{lst:matLev});
     \item рекурсивный алгоритм поиска расстояния Левенштейна с кэшем (листинги
-          \ref{lst:matInit}, \ref{lst:recCacheLevInit}-\ref{lst:recCacheLev});
+          \ref{lst:matInit}-\ref{lst:recCacheLev});
+    \item матричный алгоритм поиска расстояния Левенштейна (листинги
+          \ref{lst:matInit}, \ref{lst:matLev});
     \item рекурсивный алгоритм поиска расстояния Дамерау-Левенштейна с кэшем
           (листинг \ref{lst:recDamLev}).
 \end{itemize}
@@ -68,16 +68,6 @@ time\cite{time}.
 \noindent
 \begin{minipage}{\linewidth}
 \begin{lstinputlisting}[
-	caption={Реализация матричного алгоритма поиска расстояния Левенштейна},
-	label={lst:matLev},
-	linerange={38-52}
-]{../../src/levenstein.py}
-\end{lstinputlisting}
-\end{minipage}
-
-\noindent
-\begin{minipage}{\linewidth}
-\begin{lstinputlisting}[
     caption={Реализация инициализации данных для рекурсивного алгоритма поиска
              расстояния Левенштейна с кэшем},
 	label={lst:recCacheLevInit},
@@ -92,6 +82,16 @@ time\cite{time}.
 	caption={Реализация рекурсивного алгоритма поиска расстояния Левенштейна с кэшем},
 	label={lst:recCacheLev},
 	linerange={55-74}
+]{../../src/levenstein.py}
+\end{lstinputlisting}
+\end{minipage}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstinputlisting}[
+	caption={Реализация матричного алгоритма поиска расстояния Левенштейна},
+	label={lst:matLev},
+	linerange={38-52}
 ]{../../src/levenstein.py}
 \end{lstinputlisting}
 \end{minipage}
