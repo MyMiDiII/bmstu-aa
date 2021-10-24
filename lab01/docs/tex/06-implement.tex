@@ -1,0 +1,137 @@
+\chapter{Технологическая часть}
+
+В данном разделе описаны требования к программному обеспечению, средства
+реализации, приведены листинги кода и данные, на которых будет проводиться
+тестирование.
+
+\section{Требования к программному обеспечению}
+
+Программа должна предоставлять следующие возможности:
+\begin{itemize}[left=\parindent]
+    \item выбор режима работы: для единичного эксперимента и для массовых
+          эксперименов;
+    \item в режиме единичного эксперимента ввод двух строк на русском или
+          английском языках и вывод полученных разными реализациями расстояний;
+    \item в режиме массовых экспериментов измерение времени при различных
+          длинах строк и построение графиков по полученным данным.
+\end{itemize}
+
+\section{Средства реализации}
+
+Для реализации данной лабораторной работы выбран интерпретируемый язык
+программирования высокого уровня Python\cite{python}, так как он позволяет
+реализовывать сложные задачи за кратчайшие сроки за счет простоты синтаксиса и
+наличия большого количества подключаемых библиотек. 
+
+В качестве среды разработки выбран текстовый редактор Vim\cite{vim} c
+установленными плагинами автодополнения и поиска ошибок в процессе написания,
+так как он реализует быстрое перемещение по тексту программы и простое
+взаимодействие с командной строкой.
+
+Замеры времени проводились при помощи функции process\_time\_ns из библиотеки
+time\cite{time}.
+
+\section{Листинги кода}
+
+В данном подразделе представлены листинги кода ранее описанных алгоритмов:
+\begin{itemize}[left=\parindent]
+    \item рекурсивный алгоритм поиска расстояния Левенштейна (листинг
+          \ref{lst:recLev});
+    \item рекурсивный алгоритм поиска расстояния Левенштейна с кэшем (листинги
+          \ref{lst:matInit}-\ref{lst:recCacheLev});
+    \item матричный алгоритм поиска расстояния Левенштейна (листинги
+          \ref{lst:matInit}, \ref{lst:matLev});
+    \item рекурсивный алгоритм поиска расстояния Дамерау-Левенштейна с кэшем
+          (листинг \ref{lst:recDamLev}).
+\end{itemize}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstinputlisting}[
+	caption={Реализация рекурсивного алгоритма поиска расстояния Левенштейна},
+	label={lst:recLev},
+	linerange={20-35}
+]{../../src/levenstein.py}
+\end{lstinputlisting}
+\end{minipage}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstinputlisting}[
+	caption={Реализация инициализации матрицы},
+	label={lst:matInit},
+	linerange={3-7}
+]{../../src/levenstein.py}
+\end{lstinputlisting}
+\end{minipage}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstinputlisting}[
+    caption={Реализация инициализации данных для рекурсивного алгоритма поиска
+             расстояния Левенштейна с кэшем},
+	label={lst:recCacheLevInit},
+	linerange={78-85}
+]{../../src/levenstein.py}
+\end{lstinputlisting}
+\end{minipage}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstinputlisting}[
+	caption={Реализация рекурсивного алгоритма поиска расстояния Левенштейна с кэшем},
+	label={lst:recCacheLev},
+	linerange={55-74}
+]{../../src/levenstein.py}
+\end{lstinputlisting}
+\end{minipage}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstinputlisting}[
+	caption={Реализация матричного алгоритма поиска расстояния Левенштейна},
+	label={lst:matLev},
+	linerange={38-52}
+]{../../src/levenstein.py}
+\end{lstinputlisting}
+\end{minipage}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstinputlisting}[
+    caption={Реализация рекурсивного алгоритма поиска расстояния
+             Дамерау-Левенштейна с кэшем},
+	label={lst:recDamLev},
+	linerange={3-27}
+]{../../src/dameraulevenstein.py}
+\end{lstinputlisting}
+\end{minipage}
+
+\section{Описание тестирования}
+
+В таблице \ref{tab:tests} приведены функциональные тесты для алгоритмов поиска
+расстояний Левенштейна и Дамерау-Левенштейна.
+
+\begin{table}[h]
+	\begin{center}
+		\caption{\label{tab:tests}Функциональные тесты}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			& & \multicolumn{2}{c|}{\bfseries Ожидаемый результат}\\ \cline{3-4}
+			\bfseries Строка 1  & \bfseries Строка 2 &
+            \bfseries Левенштейн & \bfseries Дамерау-Левенштейн
+			\csvreader{../data/csv/tests.csv}{}
+			{\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
+			\\\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\clearpage
+
+\section{Вывод}
+
+В данном разделе были разработаны алгоритмы поиска расстояния Левенштейна:
+рекурсивный, матричный и рекурсивный с кэшем, --- и рекурсивный алгоритм
+с кэшем поиска расстояния Дамерау-Левенштейна. Также были разработаны
+функциональные тесты для проверки корректности реализаций.
