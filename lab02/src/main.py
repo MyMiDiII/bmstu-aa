@@ -92,7 +92,6 @@ def singleExperiment():
               % (p1, m))
         return
 
-    print(matr1, matr2, sep="\n")
     print()
     print("РЕЗУЛЬТАТЫ")
     print("Стандартный алгоритм:")
