@@ -81,6 +81,7 @@ def WinogradMatrProd(m1, m2):
 
     return res
 
+
 def optCountMulH(matrix):
     N = len(matrix)
     P = len(matrix[0])
