@@ -114,7 +114,7 @@
         \begin{multline}\label{mulHeq}
             f_{mulH} = f_A = 2 + N(2 + f_B) = \\ = 2 + N(2 +
                        1 + 3 + \frac{P}{2}(3 + 1 + 15)) = \\ = 2 +
-                       N\big(6 + \frac{19P}{2}\big) = 9.5PN + 6N + 2
+                       N(6 + \frac{19P}{2}) = 9.5PN + 6N + 2
         \end{multline}
 
     \item трудоемкость заполнения массива mulV вычисляется по формуле
@@ -199,8 +199,8 @@
 Рассчитаем трудоемкость оптимизированного алгоритма Винограда аналогично
 неоптимизированному случаю:
 \begin{itemize}[left=\parindent]
-    \item трудоемкость инициализации массивов mulH и mulV равна \ref{miniteq};
-        \begin{equation}\label{miniteq}
+    \item трудоемкость инициализации массивов mulH и mulV равна \ref{ominiteq};
+        \begin{equation}\label{ominiteq}
             f_{init} = N + M
         \end{equation}
 
@@ -208,34 +208,33 @@
         \ref{optMulHeq} (обоначение циклов как на схеме
         \ref{scheme:optCountMulH});
         \begin{multline}\label{optMulHeq}
-            f_{optMulH} = f_A = 2 + N(2 + f_B) = \\ = 2 + N(2 +
-                       1 + 2 + \frac{P}{2}(3 + 11)) = \\ = 2 +
-                       N\big(5 + \frac{14P}{2}\big) = 7PN + 5N + 2
+            f_{optMulH} = f_A = 2 + N(2 + f_B) = \\ = 2 + N(2 + 1 + 2 +
+            \frac{P}{2}(3 + 9)) = \\ = 2 + N(5 + \frac{12P}{2}) = 6PN
+            + 5N + 2
         \end{multline}
 
     \item трудоемкость заполнения массива mulV вычисляется по формуле
         \ref{optMulVeq} (обоначение циклов как на схеме
         \ref{scheme:optCountMulV});
         \begin{multline}\label{optMulVeq}
-            f_{mulV} = f_A = 2 + M(2 + f_B) = \\ = 2 +
-            M(2 + 1 + 2 + \frac{P}{2}(3 + 11)) = \\ = 2 + M(5 +
-            \frac{14P}{2}) = 7MP + 5M + 2
+            f_{optMulV} = f_A = 2 + M(2 + f_B) = \\ = 2 + M(2 + 1 + 2 +
+            \frac{P}{2}(3 + 9)) = \\ = 2 + M(5 + \frac{12P}{2}) = 6MP + 5M + 2
         \end{multline}
 
     \item трудоемкость основной части алгоритма для лучшего случая, то есть
-        когда P -- четное, равна \ref{winmainbesteq} (обознаяение циклов как на
+        когда P -- четное, равна \ref{owinmainbesteq} (обознаяение циклов как на
         схеме \ref{scheme:optWin});
-        \begin{multline}\label{winmainbesteq}
+        \begin{multline}\label{owinmainbesteq}
             f_{optMain}^{\wedge} = f_A = 2 + N(2 + f_B) = \\ =  2 + N(2 + 2 +
             M(2 + 6 + f_c + 3)) = \\ = 2 + N(4 + M(11 + 3 + \frac{P}{2}(3 +
             17))) = \\ = 10NMP + 14NM + 4N + 2
         \end{multline}
 
     \item трудоемкость основной части алгоритма для худшего случая, то есть
-        когда P -- нечетное, равна \ref{winmainworseeq} (обознаяение циклов как
+        когда P -- нечетное, равна \ref{owinmainworseeq} (обознаяение циклов как
         на схеме \ref{scheme:optWin});
-        \begin{multline}\label{winmainworseeq}
-            f_{main}^{\vee} = f_A = 2 + N(2 + f_B) = \\ =  2 + N(2 + 2 + M(2 +
+        \begin{multline}\label{owinmainworseeq}
+            f_{optMain}^{\vee} = f_A = 2 + N(2 + f_B) = \\ =  2 + N(2 + 2 + M(2 +
             6 + f_c + 3 + 11)) = \\ = 2 + N(4 + M(22 + 3 + \frac{P}{2}(3 +
             17))) = \\ = 10NMP + 25NM + 4N + 2
         \end{multline}
@@ -245,18 +244,18 @@
 \ref{optwinogradbest} для лучшего случая, \ref{optwinogradworse} -- для
 худшего.
     \begin{multline}\label{optwinogradbest}
-        f_{Winograd}^{\wedge} = 10NMP + 14NM + 4N + 2 + \\
-                                + 7MP + 5M + 2
-                                + 7PN + 5N + 2 + N + M = \\
-                                = 10NMP + 14NM + 7MP
-                                + 7PN + 10N + 6M + 6
+        f_{optWinograd}^{\wedge} = 10NMP + 14NM + 4N + 2 + \\
+                                + 6MP + 5M + 2
+                                + 6PN + 5N + 2 + N + M = \\
+                                = 10NMP + 14NM + 6MP
+                                + 6PN + 10N + 6M + 6
     \end{multline}
     \begin{multline}\label{optwinogradworse}
-        f_{Winograd}^{\vee} = 10NMP + 25NM + 4N + 2 + \\
-                              + 7MP + 5M + 2
-                              + 7PN + 5N + 2 + N + M = \\
-                              = 10NMP + 25NM + 7MP
-                              + 7PN + 10N + 6M + 6
+        f_{optWinograd}^{\vee} = 10NMP + 25NM + 4N + 2 + \\
+                              + 6MP + 5M + 2
+                              + 6PN + 5N + 2 + N + M = \\
+                              = 10NMP + 25NM + 6MP
+                              + 6PN + 10N + 6M + 6
     \end{multline}
 
 \section{Структура разрабатываемого ПО}
