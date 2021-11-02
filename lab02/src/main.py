@@ -98,7 +98,7 @@ def singleExperiment():
     printMatr(standartMatrProd(matr1, matr2))
     print("Алгоритм Винограда:")
     printMatr(WinogradMatrProd(matr1, matr2))
-    print("Оптимизированный алгоритм Винограда:")
+    print("Оптимизированный алгоритм\nВинограда:")
     printMatr(optWinogradMatrProd(matr1, matr2))
 
 
@@ -133,46 +133,47 @@ def massExperiments():
             'Винограда, нс',
             'Оптимизированный, нс'
             ]
-    print(" Таблица времени выполнения алгоритмов на четных рамерах")
+    print("      Таблица времени выполнения алгоритмов на четных рамерах")
     printTable(
             [str(size) + 'x' + str(size) for size in sizes],
             timesEven,
             names,
-            6)
+            0)
 
     print()
-    print("Таблица времени выполнения алгоритмов на нечетных рамерах")
-    printTable(sizes, timesOdd, names, 6)
+    print("     Таблица времени выполнения алгоритмов на нечетных рамерах")
+    printTable(
+            [str(size) + 'x' + str(size) for size in sizes],
+            timesOdd,
+            names,
+            0)
 
-"""
-    plt.figure(figsize=(7, 9))
-    plt.subplots_adjust(hspace=0.7)
-    plt.subplot(2, 1, 1)
-    labels = ['рекурсивный', 'матричный', 'с кэшем']
-    for i, algTime in enumerate(timesLev):
+    plt.figure(figsize=(15.5, 9))
+    plt.subplots_adjust(hspace=0.5)
+    plt.subplot(1, 2, 1)
+    labels = ['стандартный', 'Винограда', 'оптимизированный Винограда']
+    for i, algTime in enumerate(timesEven):
         if None not in algTime:
-            plt.plot(lens, algTime, label=labels[i])
-    plt.title("Сравнение реализаций алгоритма поиска расстояния Левенштейна\n")
-    plt.xlabel("Длина строк", fontsize=14)
+            plt.plot(sizes, algTime, label=labels[i])
+    plt.title("Сравнение алгоритмов умножения матриц на четных значениях\n")
+    plt.xlabel("Размер матриц", fontsize=14)
     plt.ylabel("Время, ns", fontsize=14)
     plt.grid(True)
     plt.legend()
 
-    plt.subplot(2, 1, 2)
-    labels = ['Левенштейн', 'Дамерау-Левенштейн']
-    for i, algTime in enumerate(timesLevVSDam):
+    plt.subplot(1, 2, 2)
+    labels = ['стандартный', 'Винограда', 'оптимизированный Винограда']
+    for i, algTime in enumerate(timesEven):
         if None not in algTime:
-            plt.plot(lens, algTime, label=labels[i])
-    plt.title("Сравнение времени выполнения поиска расстояния Левенштейна и"
-              + "\nпоиска расстояния Дамерау-Левенштейна\n")
-    plt.xlabel("Длина строк", fontsize=14)
+            plt.plot(sizes, algTime, label=labels[i])
+    plt.title("Сравнение алгоритмов умножения матриц на нечетных значениях\n")
+    plt.xlabel("Размер матриц", fontsize=14)
     plt.ylabel("Время, ns", fontsize=14)
     plt.grid(True)
     plt.legend()
 
-    plt.get_current_fig_manager().window.move(960, 0)
+    plt.get_current_fig_manager().window.move(0, 0)
     plt.show()
-"""
 
 
 def wrongAnswer():
