@@ -1,0 +1,222 @@
+\chapter{Технологическая часть}
+
+В данном разделе описаны требования к программному обеспечению, средства
+реализации, приведены листинги кода и данные, на которых будет проводиться
+тестирование.
+
+\section{Требования к программному обеспечению}
+
+Программа должна предоставлять следующие возможности:
+\begin{itemize}[left=\parindent]
+    \item выбор режима работы: для единичного эксперимента и для массовых
+          эксперименов;
+    \item в режиме единичного эксперимента ввод размеров и содержимого каждой
+          матрицы и вывод полученного разными алгоритмами произведений;
+    \item в режиме массовых экспериментов измерение времени при различных
+          размерах матриц и построение графиков по полученным данным.
+\end{itemize}
+
+\section{Средства реализации}
+
+Для реализации данной лабораторной работы выбран интерпретируемый язык
+программирования высокого уровня Python\cite{python}, так как он позволяет
+реализовывать сложные задачи за кратчайшие сроки за счет простоты синтаксиса и
+наличия большого количества подключаемых библиотек. 
+
+В качестве среды разработки выбран текстовый редактор Vim\cite{vim} c
+установленными плагинами автодополнения и поиска ошибок в процессе написания,
+так как он реализует быстрое перемещение по тексту программы и простое
+взаимодействие с командной строкой.
+
+Замеры времени проводились при помощи функции process\_time\_ns из библиотеки
+time\cite{time}.
+
+\section{Листинги кода}
+
+В данном подразделе представлены листинги кода ранее описанных алгоритмов:
+\begin{itemize}[left=\parindent]
+    \item стандартный алгоритм умножения матриц (листинг \ref{lst:std});
+    \item алгоритм Винограда (листинги \ref{lst:WinMulH}-\ref{lst:Winograd});
+    \item оптимизированный алгоритм Винограда (листинги
+          \ref{lst:optWinMulH}-\ref{lst:optWinograd}).
+\end{itemize}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstinputlisting}[
+	caption={Реализация стандартного алгоритма умножения матриц},
+	label={lst:std},
+	linerange={19-31}
+]{../../src/matrixes.py}
+\end{lstinputlisting}
+\end{minipage}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstinputlisting}[
+    caption={Реализация подпрограммы алгоритма Винограда для расчета значений
+             массива mulH},
+	label={lst:WinMulH},
+    linerange={34-44}
+]{../../src/matrixes.py}
+\end{lstinputlisting}
+\end{minipage}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstinputlisting}[
+    caption={Реализация подпрограммы алгоритма Винограда для расчета значений
+             массива mulV},
+	label={lst:WinMulV},
+    linerange={47-57}
+]{../../src/matrixes.py}
+\end{lstinputlisting}
+\end{minipage}
+\\
+\\
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstinputlisting}[
+	caption={Реализация алгоритма Винограда},
+	label={lst:Winograd},
+    linerange={60-82}
+]{../../src/matrixes.py}
+\end{lstinputlisting}
+\end{minipage}
+\\
+\\
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstinputlisting}[
+    caption={Реализация подпрограммы оптимизированного алгоритма Винограда для
+    расчета значений массива mulH},
+	label={lst:optWinMulH},
+    linerange={85-95}
+]{../../src/matrixes.py}
+\end{lstinputlisting}
+\end{minipage}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstinputlisting}[
+    caption={Реализация подпрограммы оптимизированного алгоритма Винограда для
+    расчета значений массива mulH},
+	label={lst:optWinMulV},
+    linerange={98-108}
+]{../../src/matrixes.py}
+\end{lstinputlisting}
+\end{minipage}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstinputlisting}[
+	caption={Реализация оптимизированного алгоритма Винограда},
+	label={lst:optWinograd},
+    linerange={111-134}
+]{../../src/matrixes.py}
+\end{lstinputlisting}
+\end{minipage}
+
+\section{Описание тестирования}
+
+В таблице \ref{tab:tests} приведены функциональные тесты для алгоритмов
+умножения матриц.
+
+\begin{table}[h!]
+	\begin{center}
+        \caption{\label{tab:tests}Функциональные тесты}
+        \begin{tabular}{|c|c|c|}
+			\hline
+            \textbf{Матрица 1} & \textbf{Матрица 2} &\textbf{Ожидаемый
+            результат} \\ [2mm]
+            \hline
+			$\begin{pmatrix}
+                1 & 2 & 3
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+                1 & 2
+			\end{pmatrix}$ &
+			Не могут быть перемножены\\
+            \hline
+			$\begin{pmatrix}
+                1 & 2 & 3\\
+                1 & 2 & 3\\
+                1 & 2 & 3
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+                -1 & 2 & 3\\
+                1 & -2 & 3\\
+                1 & 2 & -3
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+                4 & 4 & 0\\
+                4 & 4 & 0\\
+                4 & 4 & 0
+			\end{pmatrix}$ \\
+            \hline
+			$\begin{pmatrix}
+                1 & 2 & 3\\
+                1 & 2 & 3
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+                -1 & -3\\
+                -2 & -2\\
+                -3 & -1
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+                -14 & -10\\
+                -14 & -10
+			\end{pmatrix}$ \\
+            \hline
+			$\begin{pmatrix}
+                3 & -5\\
+                1 & -2
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+                2 & -5\\
+                1 & -3
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			    1 & 0\\
+                0 & 1
+			\end{pmatrix}$ \\
+            \hline
+			$\begin{pmatrix}
+                1 & 2 & 3\\
+                1 & 2 & 3\\
+                1 & 2 & 3
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+                0 & 0 & 0\\
+                0 & 0 & 0\\
+                0 & 0 & 0
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+                0 & 0 & 0\\
+                0 & 0 & 0\\
+                0 & 0 & 0
+			\end{pmatrix}$ \\
+            \hline
+			$\begin{pmatrix}
+                1 & 2 & 3\\
+                1 & 2 & 3\\
+                1 & 2 & 3
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+                1 & 0 & 0\\
+                0 & 1 & 0\\
+                0 & 0 & 1
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+                1 & 2 & 3\\
+                1 & 2 & 3\\
+                1 & 2 & 3
+			\end{pmatrix}$ \\
+            \hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\section{Вывод}
+
+В данном разделе были реализованы алгоритмы умножения матриц: стандартный, Винограда и оптимизированный Винограда. Также были написаны тесты для каждого класса эквивалентности, описанного в конструкторском разделе.
