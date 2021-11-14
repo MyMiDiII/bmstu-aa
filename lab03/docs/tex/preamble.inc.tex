@@ -102,3 +102,23 @@
 \usepackage{csvsimple}
 \newcommand{\specialcell}[2][c]{%
   \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+\newcommand{\csvtable}[3]{
+    \begin{table}[h]
+        \begin{center}
+        \begin{threeparttable}
+            \captionsetup{format=hang,justification=raggedright,
+                          singlelinecheck=off}
+            \caption{\label{tab:#1}#2}
+            \begin{tabular}{|r|r|r|r|}
+                \hline
+                \bfseries Размер & \bfseries Вставками, нс &
+                \bfseries Перемешиванием, нс & \bfseries Выбором, нс
+                \csvreader{../data/csv/#3.csv}{}
+                {\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
+                \\\hline
+            \end{tabular}
+        \end{threeparttable}
+        \end{center}
+    \end{table} 
+}
