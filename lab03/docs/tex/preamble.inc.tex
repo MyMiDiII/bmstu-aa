@@ -41,6 +41,19 @@
 \usepackage[newfloat]{minted}
 \usepackage{verbatim}
 
+\newcommand{\mylisting}[4] {
+    \noindent
+    \begin{minipage}{\linewidth}
+        \captionsetup{justification=raggedright,singlelinecheck=off}
+        \begin{lstinputlisting}[
+            caption={#1},
+            label={lst:#2},
+            linerange={#3}
+        ]{../../src/#4}
+        \end{lstinputlisting}
+    \end{minipage}
+}
+
 % Images
 \usepackage{graphicx}
 \newcommand{\scheme}[4] {
@@ -85,6 +98,7 @@
 \usepackage{amsmath}
 
 % Tabulars
+\usepackage{threeparttable}
 \usepackage{csvsimple}
 \newcommand{\specialcell}[2][c]{%
   \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}

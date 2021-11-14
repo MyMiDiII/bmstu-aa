@@ -10,9 +10,14 @@
 \begin{itemize}[left=\parindent]
     \item выбор режима работы: для единичного эксперимента и для массовых
           эксперименов;
-    \item в режиме единичного эксперимента ввод % !!!! write here
-    \item в режиме массовых экспериментов измерение времени при различных
-          % wtire here
+    \item в режиме единичного эксперимента ввод последовательности для
+          сортировки и вывод результатов работы каждого из алгритмов сортировки
+          (отсортированной последовательности);
+    \item в режиме массовых экспериментов измерение времени работы каждого из
+          алгоритмов сортировки при различных длинах сортируемой
+          последовательности и различных её первоначальных состояниях:
+          отсортированная, отсортированная в обратном порядке, случайная
+          последовательности.
 \end{itemize}
 
 \section{Средства реализации}
@@ -34,92 +39,70 @@ time\cite{time}.
 
 В данном подразделе представлены листинги кода ранее описанных алгоритмов:
 \begin{itemize}[left=\parindent]
-    \item (листинг \ref{lst:std});
-    \item (листинги \ref{lst:WinMulH}-\ref{lst:Winograd});
-    \item (листинги
-          \ref{lst:optWinMulH}-\ref{lst:optWinograd}).
+    \item алгоритм сортировки вставками (листинг \ref{lst:insert});
+    \item алгоритм сортировки перемешиванием (листинг \ref{lst:shaker});
+    \item алгоритм сортировки выбором (листинги \ref{lst:select}).
 \end{itemize}
 
-% \noindent
-% \begin{minipage}{\linewidth}
-% \begin{lstinputlisting}[
-% 	caption={Реализация стандартного алгоритма умножения матриц},
-% 	label={lst:std},
-% 	linerange={19-31}
-% ]{../../src/matrixes.py}
-% \end{lstinputlisting}
-% \end{minipage}
-% 
-% \noindent
-% \begin{minipage}{\linewidth}
-% \begin{lstinputlisting}[
-%     caption={Реализация подпрограммы алгоритма Винограда для расчета значений
-%              массива mulH},
-% 	label={lst:WinMulH},
-%     linerange={34-44}
-% ]{../../src/matrixes.py}
-% \end{lstinputlisting}
-% \end{minipage}
-% 
-% \noindent
-% \begin{minipage}{\linewidth}
-% \begin{lstinputlisting}[
-%     caption={Реализация подпрограммы алгоритма Винограда для расчета значений
-%              массива mulV},
-% 	label={lst:WinMulV},
-%     linerange={47-57}
-% ]{../../src/matrixes.py}
-% \end{lstinputlisting}
-% \end{minipage}
-% \\
-% \\
-% \noindent
-% \begin{minipage}{\linewidth}
-% \begin{lstinputlisting}[
-% 	caption={Реализация алгоритма Винограда},
-% 	label={lst:Winograd},
-%     linerange={60-82}
-% ]{../../src/matrixes.py}
-% \end{lstinputlisting}
-% \end{minipage}
-% \\
-% \\
-% \noindent
-% \begin{minipage}{\linewidth}
-% \begin{lstinputlisting}[
-%     caption={Реализация подпрограммы оптимизированного алгоритма Винограда для
-%     расчета значений массива mulH},
-% 	label={lst:optWinMulH},
-%     linerange={85-95}
-% ]{../../src/matrixes.py}
-% \end{lstinputlisting}
-% \end{minipage}
-% 
-% \noindent
-% \begin{minipage}{\linewidth}
-% \begin{lstinputlisting}[
-%     caption={Реализация подпрограммы оптимизированного алгоритма Винограда для
-%     расчета значений массива mulH},
-% 	label={lst:optWinMulV},
-%     linerange={98-108}
-% ]{../../src/matrixes.py}
-% \end{lstinputlisting}
-% \end{minipage}
-% 
-% \noindent
-% \begin{minipage}{\linewidth}
-% \begin{lstinputlisting}[
-% 	caption={Реализация оптимизированного алгоритма Винограда},
-% 	label={lst:optWinograd},
-%     linerange={111-134}
-% ]{../../src/matrixes.py}
-% \end{lstinputlisting}
-% \end{minipage}
+\mylisting{Реализация алгоритма сортировки вставками}{insert}{1-12}{sorts.py}
+\mylisting{Реализация алгоритма сортировки
+           перемешиванием}{shaker}{15-35}{sorts.py}
+\mylisting{Реализация алгоритма сортировки выбором}{select}{38-48}{sorts.py}
 
 \section{Описание тестирования}
 
 В таблице \ref{tab:tests} приведены функциональные тесты для алгоритмов
-умножения матриц.
+сортировки.
+
+\begin{table}[h!]
+	\begin{center}
+    \begin{threeparttable}
+        \captionsetup{justification=raggedright,singlelinecheck=off}
+        \caption{\label{tab:tests}Функциональные тесты}
+        \begin{tabular}{|c|c|}
+			\hline
+            \textbf{Последовательность} & \textbf{Ожидаемый результат} \\ [2mm]
+            \hline
+            $[~]$
+            &
+            $[~]$
+            \\
+            \hline
+            $[1, 2, 3, 4]$
+            &
+            $[1, 2, 3, 4]$
+            \\
+            \hline
+            $[-1, -2, 0, 3, 4]$
+            &
+            $[-1, -2, 0, 3, 4]$
+            \\
+            \hline
+            $[100, 50, -20, -99]$
+            &
+            $[-99, -20, 50, 100]$
+            \\
+            \hline
+            $[13, 7, 1, -1, -17]$
+            &
+            $[-17, -1, 1, 7, 13]$
+            \\
+            \hline
+            $[4, 2, -44, 76, 0, 11]$
+            &
+            $[-44, 0, 2, 4, 11, 76]$
+            \\
+            \hline
+            $[113]$
+            &
+            $[133]$
+            \\
+            \hline
+		\end{tabular}
+    \end{threeparttable} 
+	\end{center}
+\end{table}
 
 \section{Вывод}
 
+В данном разделе были реализованы алгоритмы сортировки вставками, перемешиванием, выбором. Также были написаны тесты для каждого класса эквивлентнсти, описанного в конструкторском разделе.
