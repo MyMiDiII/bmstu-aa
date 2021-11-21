@@ -58,3 +58,8 @@ if __name__ == '__main__':
 
     res = dijkstra(example2, 0)
     print(res)
+
+    if res == [0, 2, 5, 9, 9]:
+        print("OK")
+    else:
+        print("NO")
