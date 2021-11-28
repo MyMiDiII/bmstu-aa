@@ -10,6 +10,6 @@ struct interval_t{
 typedef long double(*function_t)(double);
 
 long double integralByPrecision(interval_t &interval, function_t func);
-long double multithreading(int threads_num, interval_t &interval, function_t func);
+long double parallelIntegralByPrecision(int threads_num, interval_t &interval, function_t func);
 
 #endif // INTEGRAL_H

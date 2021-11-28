@@ -28,45 +28,42 @@ long double midpoint(double begin, double end, unsigned int n, function_t func)
 long double integralByPrecision(interval_t &interval, function_t func)
 {
     unsigned long n = 2;
-    long double res = 0;
-    long double obt_res = midpoint(interval.begin, interval.end, n, func);
+    long double delta = 1;
+    long double res = 0, obt_res = 0;
 
-    while (abs(res - obt_res) > interval.eps)
+    while (delta > interval.eps)
     {
         res = obt_res;
-        n *= 2;
         obt_res = midpoint(interval.begin, interval.end, n, func);
+        n *= 2;
+        delta = abs(res - obt_res);
     }
 
     return res;
 }
 
-long double parallelIntegral(interval_t &interval, function_t func,
-                             long double &res, int threads_num, int i,
-                             mutex &res_mut)
+void parallelMidpoint(double begin, double end, unsigned int n, function_t func,
+                      long double &res, int threads_num, int i, mutex &mut)
 {
-    double delta = (interval.end - interval.begin) / threads_num;
+    double local_res = 0;
+    double step = (end - begin) / n;
+    double x = begin + i * step + step / 2;
 
-    interval_t part = {
-        .begin = interval.begin + i * delta,
-        .end = 0,
-        .eps = interval.eps
-    };
-    part.end = part.begin + delta;
-    cout << "limits " << part.begin << " " << part.end << endl;
+    while (x < end + step / 2)
+    {
+        long double y = func(x);
+        local_res += y * step;
+        x += step * threads_num;
+    }
 
-    long double local_res = trunc(integralByPrecision(part, func) * 1 / interval.eps) * interval.eps;
-
-    res_mut.lock();
+    mut.lock();
     res += local_res;
-    res_mut.unlock();
-
-    return res;
+    mut.unlock();
 }
 
-long double multithreading(int threads_num, interval_t &interval, function_t func)
+long double multithreading(int threads_num, interval_t &interval,
+                           unsigned int n, function_t func)
 {
-    //cout << "parallel" << endl;
     long double res = 0;
     mutex res_mut;
 
@@ -74,13 +71,30 @@ long double multithreading(int threads_num, interval_t &interval, function_t fun
 
     for (int i = 0; i < threads_num; i++)
     {
-        threads[i] = thread(parallelIntegral, ref(interval), func, ref(res),
-                            threads_num, i, ref(res_mut));
+        threads[i] = thread(parallelMidpoint, interval.begin, interval.end, n,
+                            func, ref(res), threads_num, i, ref(res_mut));
     }
 
     for (int i = 0; i < threads_num; i++)
     {
         threads[i].join();
+    }
+
+    return res;
+}
+
+long double parallelIntegralByPrecision(int threads_num, interval_t &interval, function_t func)
+{
+    unsigned long n = 2;
+    long double delta = 1;
+    long double res = 0, obt_res = 0;
+
+    while (delta > interval.eps)
+    {
+        res = obt_res;
+        obt_res = multithreading(threads_num, interval, n, func);
+        n *= 2;
+        delta = abs(res - obt_res);
     }
 
     return res;

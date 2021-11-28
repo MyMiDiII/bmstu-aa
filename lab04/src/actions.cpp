@@ -94,7 +94,7 @@ void single(void)
     cout << "Время: " << setprecision(0) << t << " нс" << endl;
 
     start = chrono::system_clock::now();
-    p_res = multithreading(th_num, interval, f);
+    p_res = parallelIntegralByPrecision(th_num, interval, f);
     finish = chrono::system_clock::now();
     t = chrono::duration_cast<chrono::nanoseconds> (finish - start).count();
 
