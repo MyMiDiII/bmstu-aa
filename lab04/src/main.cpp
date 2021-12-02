@@ -5,8 +5,10 @@
 
 using namespace std;
 
+#define HEADER "РАСПАРАЛЛЕЛИВАНИЕ АЛГОРИТМА ЧИСЛЕННОГО ИНТЕГРИРОВАНИЯ"
+
 #define MENU_MSG \
-"     МЕНЮ\n\
+"\n     МЕНЮ\n\
 1 -- подсчет интеграла;\n\
 2 -- сравнение последовательного и параллельного алгоритмов;\n\
 0 -- выход.\n\n\
@@ -14,6 +16,7 @@ using namespace std;
 
 int main(void)
 {
+    cout << HEADER << endl;
     int ch = BEGIN;
 
     while (ch)
@@ -25,11 +28,10 @@ int main(void)
         switch(ch)
         {
             case SINGLE:
-                single();
+                single(ch);
                 break;
             case MASS:
-                cout << "mass!" << endl;
-                //mass();
+                mass(ch);
                 break;
             default:
                 ch = 0;

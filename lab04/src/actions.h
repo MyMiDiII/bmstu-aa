@@ -9,7 +9,7 @@ enum action_t
     BEGIN
 };
 
-void single(void);
-void mass(void);
+void single(int &ch);
+void mass(int &ch);
 
 #endif // ACTIONS_H
