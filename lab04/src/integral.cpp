@@ -17,8 +17,7 @@ long double midpoint(double begin, double end, unsigned int n, function_t func)
 
     while (x < end + step / 2)
     {
-        long double y = func(x);
-        res += y * step;
+        res += func(x) * step;
         x += step;
     }
 
@@ -51,8 +50,7 @@ void parallelMidpoint(double begin, double end, unsigned int n, function_t func,
 
     while (x < end + step / 2)
     {
-        long double y = func(x);
-        local_res += y * step;
+        local_res += func(x) * step;
         x += step * threads_num;
     }
 
