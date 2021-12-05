@@ -2,15 +2,41 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
+	"time"
 
 	. "github.com/logrusorgru/aurora"
+
+	. "./conveyor"
 )
 
+func generateRequests(num int) (*Queue, *Queue) {
+	MINNUM := 3
+	MAXNUM := 8
+
+	queueL := CreateQueue(num)
+	queueP := CreateQueue(num)
+
+	for i := 0; i < num; i++ {
+		msgL := new(Cipher)
+		msgP := new(Cipher)
+
+		words := MINNUM + rand.Intn(MAXNUM-MINNUM+1)
+		msgL.SetWordsNum(words)
+		msgP.SetWordsNum(words)
+
+		queueL.Push(msgL)
+		queueP.Push(msgP)
+	}
+
+	return queueL, queueP
+}
+
 func main() {
-	fmt.Println(Green("Конвейерная обработка"))
+	fmt.Println(Green("Конвейерная обработка\n"))
 
 	fmt.Print("Введите количество заявок: ")
-	var num uint
+	var num int
 	fmt.Scanf("%d", &num)
 
 	if num == 0 {
@@ -18,5 +44,16 @@ func main() {
 		return
 	}
 
-	fmt.Println(num)
+	if num < 0 {
+		num = -num
+	}
+
+	queueL, _ := generateRequests(num)
+
+	start := time.Now()
+	resL := LinearConveyor(queueL)
+	end := time.Now()
+
+	PrintLog(start, end, resL)
+	fmt.Println(resL)
 }

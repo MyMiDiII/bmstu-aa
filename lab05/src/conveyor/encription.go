@@ -1,6 +1,7 @@
-package encryption
+package conveyor
 
 import (
+	"fmt"
 	"strings"
 	"time"
 
@@ -26,11 +27,52 @@ type Cipher struct {
 	endVegenere   time.Time
 }
 
+func (c *Cipher) SetWordsNum(num int) {
+	c.wordsNum = num
+}
+
 func GenerateMsg(msg *Cipher) {
 	msg.Msg = gofakeit.Sentence(msg.wordsNum)
 	msg.Msg = strings.TrimRight(strings.ToLower(msg.Msg), ".")
 }
 
-func reverseWords(msg *Cipher) {
+func reverseString(str string) (res string) {
+	for _, ch := range str {
+		res = string(ch) + res
+	}
 
+	return res
+}
+
+func ReverseWords(msg *Cipher) {
+	words := strings.Fields(msg.Msg)
+
+	for i, word := range words {
+		words[i] = reverseString(word)
+	}
+
+	msg.Msg = strings.Join(words, " ")
+}
+
+func CodeByVegenere(msg *Cipher) {
+	key := []rune(gofakeit.Word())
+	fmt.Println("key = ", string(key))
+	keyInd := 0
+	res := ""
+
+	for _, ch := range msg.Msg {
+		if ch >= 'a' && ch <= 'z' {
+			ch -= 'a'
+			keyCh := key[keyInd] - 'a'
+
+			ch = (ch+keyCh)%26 + 'a'
+
+			keyInd++
+			keyInd %= len(key)
+		}
+
+		res += string(ch)
+	}
+
+	msg.Msg = res
 }
