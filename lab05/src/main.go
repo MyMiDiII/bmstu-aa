@@ -48,12 +48,17 @@ func main() {
 		num = -num
 	}
 
-	queueL, _ := generateRequests(num)
+	queueL, queueP := generateRequests(num)
 
 	start := time.Now()
 	resL := LinearConveyor(queueL)
 	end := time.Now()
 
-	PrintLog(start, end, resL)
-	fmt.Println(resL)
+	PrintLog(start, end, resL, false)
+
+	start = time.Now()
+	resP := ParallelConveyor(queueP)
+	end = time.Now()
+
+	PrintLog(start, end, resP, true)
 }

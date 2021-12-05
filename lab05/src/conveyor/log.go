@@ -4,36 +4,28 @@ import (
 	"fmt"
 	"os"
 	"sort"
-	. "time"
+	"time"
 
 	"github.com/olekukonko/tablewriter"
-	//. "github.com/logrusorgru/aurora"
 )
 
 type logRow struct {
-	requestNum int      `header:"№"`
-	stage      int      `header:"stage"`
-	start      Duration `header:"begin"`
-	end        Duration `header:"end"`
+	requestNum int
+	stage      int
+	start      time.Duration
+	end        time.Duration
 }
 
-func PrintLog(start Time, end Time, q *Queue) {
+func PrintLog(start time.Time, end time.Time, q *Queue, needSort bool) {
 	tmp := new(Queue)
 	tmp.GetCopyBy(q)
-	//fmt.Println(q.data)
-	//fmt.Println(tmp.data)
 	log := make([]logRow, q.capacity*3, q.capacity*3)
-
-	//dif := end.Sub(start)
 
 	i := 0
 	j := 0
 	c := tmp.Pop()
 	begin := c.startMsg
 	for c != nil {
-		//fmt.Println("q", q.data)
-		//fmt.Println("tmp", tmp.data)
-		//fmt.Println("log")
 		log[j] = logRow{
 			requestNum: i,
 			stage:      1,
@@ -59,13 +51,21 @@ func PrintLog(start Time, end Time, q *Queue) {
 		c = tmp.Pop()
 	}
 
-	//for _, l := range log {
-	//	fmt.Println(l.requestNum, l.start)
-	//}
+	if needSort {
+		sort.Slice(log, func(i, j int) bool {
+			f := log[i].stage == log[j].stage
 
-	sort.Slice(log, func(i, j int) bool {
-		return log[i].start < log[j].start
-	})
+			if f {
+				return log[i].start < log[j].start
+			}
+
+			return log[i].stage < log[j].stage
+		})
+	} else {
+		sort.Slice(log, func(i, j int) bool {
+			return log[i].start < log[j].start
+		})
+	}
 
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"№", "Stage", "Begin", "End"})
@@ -77,12 +77,6 @@ func PrintLog(start Time, end Time, q *Queue) {
 		fo := fmt.Sprintf("%v", v.end)
 		table.Append([]string{f, s, t, fo})
 	}
-	table.Render() // Send output
-
-	//for _, l := range log {
-	//	fmt.Println(l.requestNum, l.start)
-	//}
-
-	//fmt.Println(dif)
-	//fmt.Println(log[0].stage)
+	table.Render()
+	fmt.Println("TOTAL: ", end.Sub(start))
 }

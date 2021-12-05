@@ -1,7 +1,6 @@
 package conveyor
 
 import (
-	"fmt"
 	"strings"
 	"time"
 
@@ -34,6 +33,10 @@ func (c *Cipher) SetWordsNum(num int) {
 func GenerateMsg(msg *Cipher) {
 	msg.Msg = gofakeit.Sentence(msg.wordsNum)
 	msg.Msg = strings.TrimRight(strings.ToLower(msg.Msg), ".")
+
+	for i := 0; i < msg.wordsNum*30000; i++ {
+
+	}
 }
 
 func reverseString(str string) (res string) {
@@ -52,11 +55,14 @@ func ReverseWords(msg *Cipher) {
 	}
 
 	msg.Msg = strings.Join(words, " ")
+
+	for i := 0; i < msg.wordsNum*60000; i++ {
+
+	}
 }
 
 func CodeByVegenere(msg *Cipher) {
 	key := []rune(gofakeit.Word())
-	fmt.Println("key = ", string(key))
 	keyInd := 0
 	res := ""
 
