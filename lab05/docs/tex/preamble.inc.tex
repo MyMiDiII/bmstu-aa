@@ -40,6 +40,24 @@
 \usepackage{listings}
 \usepackage[newfloat]{minted}
 \usepackage{verbatim}
+\usepackage[framemethod=tikz]{mdframed}
+
+\mdfdefinestyle{mymdstyle}{
+    innerleftmargin=0mm,
+    innerrightmargin=0mm,
+    splittopskip=\baselineskip,
+    hidealllines=true,
+    middleextra={
+      \node[anchor=west] at (O|-P)
+        {\lstlistingname~\thelstlisting~(продолжение)};
+        },
+    secondextra={
+      \node[anchor=west] at (O|-P)
+        {\lstlistingname~\thelstlisting~(продолжение)};},
+}
+
+\surroundwithmdframed[style=mymdstyle]{lstlisting}
+\newmdenv[style=mymdstyle]{mdlisting}
 
 \newcommand{\mylisting}[4] {
     \noindent
