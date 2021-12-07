@@ -37,5 +37,5 @@ func main() {
 	resP := ParallelConveyor(queueP)
 	end = time.Now()
 
-	PrintLog(start, end, resP, true)
+	PrintLog(start, end, resP, false)
 }
