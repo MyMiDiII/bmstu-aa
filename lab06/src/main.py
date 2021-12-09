@@ -5,7 +5,7 @@ from tkinter import filedialog as fd
 from prettytable import PrettyTable
 from colored import fg, attr
 
-import overdone
+import brute_force
 
 from print_utils import *
 
@@ -52,7 +52,7 @@ def singleExperiment():
     with open(filename, 'r') as file:
         graph = [[float(cost) for cost in row.split()] for row in file]
 
-    res = overdone.salesman(graph)
+    res = brute_force.salesman(graph)
 
     print()
     print("%sРЕЗУЛЬТАТЫ%s" % (fg('green'), attr(0)))
