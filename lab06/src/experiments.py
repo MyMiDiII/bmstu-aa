@@ -89,14 +89,13 @@ def parametrization():
 
 
 if __name__ == "__main__":
-    with open("./data/lowGraph.txt", "w") as file:
-        gMtrx = getGraph(9, 1, 10)
-        for row in gMtrx:
-            file.write(' '.join([str(el) for el in row]) + '\n')
+    pass
+    # with open("./data/lowGraph.txt", "w") as file:
+    #     gMtrx = getGraph(9, 1, 10)
+    #     for row in gMtrx:
+    #         file.write(' '.join([str(el) for el in row]) + '\n')
 
-    with open("./data/highGraph.txt", "w") as file:
-        gMtrx = getGraph(9, 1, 2500)
-        for row in gMtrx:
-            file.write(' '.join([str(el) for el in row]) + '\n')
-
-    _, trueLowCost = brute_force.salesman(graphLow)
+    # with open("./data/highGraph.txt", "w") as file:
+    #     gMtrx = getGraph(9, 1, 2500)
+    #     for row in gMtrx:
+    #         file.write(' '.join([str(el) for el in row]) + '\n')
