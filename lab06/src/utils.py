@@ -1,3 +1,7 @@
+from prettytable import PrettyTable
+import csv
+
+
 def printTable(lens, times, names, align=0):
     table = PrettyTable()
     table.field_names = names
@@ -11,6 +15,14 @@ def printTable(lens, times, names, align=0):
         sep=''
         )
 
+
 def printTour(tour):
     print(*tour, sep=' -> ')
 
+
+def saveTableAsCSV(sizes, times):
+    table = zip(sizes, *times)
+    with open('../docs/data/csv/times.csv', 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=',')
+        writer.writerow(['size', 'bf', 'ants'])
+        writer.writerows(table)

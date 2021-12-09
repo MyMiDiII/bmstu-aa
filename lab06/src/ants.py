@@ -44,8 +44,6 @@ def getProbabilities(citiesNum, tabu, vis, phero, alpha):
     for i in range(citiesNum):
         probabilities[i] /= denominator
 
-    # print(probabilities)
-
     return probabilities
 
 
@@ -56,17 +54,10 @@ def chooseCity(tabuList, size, vis, phero, alpha):
     probSum = probabilities[0]
     nextCity = 0
 
-    # print("FIRST", choise, ">", probSum)
-    # print("SECOND", nextCity, "<", size)
-    # print("means", choise > probSum, nextCity < size - 1)
     while choise > probSum and nextCity < size - 1:
         nextCity += 1
         probSum += probabilities[nextCity]
-        # print("FIRST", choise, ">", probSum)
-        # print("SECOND", nextCity, "<", size)
-        # print("means", choise > probSum, nextCity < size - 1)
 
-    #print(nextCity)
     return nextCity
 
 
@@ -103,10 +94,13 @@ def updatePheromones(phero, ants, Q, evarpolation):
 
 
 def salesman(graph, alpha, evarpolation, daysNum):
+    num = len(graph)
+
+    if num <= 1:
+        return [0] if num else [], 0
     Q = findCostOrder(graph)
     
     vis, phero = getEdgeCoefs(graph)
-    num = len(graph)
 
     tour = []
     minCost = float("inf")
@@ -115,9 +109,7 @@ def salesman(graph, alpha, evarpolation, daysNum):
         ants = [{'tabu' : [j], 'cost' : 0} for j in range(num)]
 
         for j, ant in enumerate(ants):
-            #print('ANT', j)
             ants[j] = getAntTour(ant, graph, vis, phero, alpha)
-             #print(j, 'ANT END', ants[j])
 
             if ants[j]['cost'] < minCost:
                 minCost = ants[j]['cost']

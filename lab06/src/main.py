@@ -2,13 +2,13 @@ import matplotlib.pyplot as plt
 
 import tkinter as tk
 from tkinter import filedialog as fd
-from prettytable import PrettyTable
 from colored import fg, attr
 
 import brute_force
 import ants
 
-from print_utils import *
+from utils import *
+from experiments import getTimes, parametrization
 
 def printInfo():
     print("Полный перебор и муравьиный алгоритм для задачи коммивояжера")
@@ -82,93 +82,37 @@ def singleExperiment():
 
 
 def massExperiments():
-    sizes = [x for x in range(100, 1001, 100)]
+    sizes = [x for x in range(2, 11)]
     funcs = [
-            insertionSort,
-            shakerSort,
-            selectionSort
+            brute_force.salesman,
+            ants.salesman
             ]
-    timesIncrease = getTimes(funcs, sizes, Mode.INC)
-    timesDecrease = getTimes(funcs, sizes, Mode.DEC)
-    timesRandom= getTimes(funcs, sizes, Mode.RAN)
+    args  = [
+            [],
+            [0.5, 0.5, 250]
+            ]
+    times = getTimes(funcs, args, sizes)
 
     print()
     names = [
             'Размер',
-            'Вставками, нс',
-            'Перемешиванием, нс',
-            'Выбором, нс'
+            'Перебор, нс',
+            'Муравьиный, нс',
             ]
-    print("      Таблица времени выполнения алгоритмов сортировки\n"
-          "           на отсортированных последовательностях")
-    printTable(
-            [size for size in sizes],
-            timesIncrease,
-            names,
-            0)
+    print("Таблица зависимостей времени работы от количества городов")
+    printTable(sizes, times, names, 0)
+    saveTableAsCSV(sizes, times)
 
-    print()
-    print("      Таблица времени выполнения алгоритмов сортировки\n"
-          " на последовательностях, отсортированных в обратном порядке")
-    printTable(
-            [size for size in sizes],
-            timesDecrease,
-            names,
-            0)
-
-    print()
-    print("      Таблица времени выполнения алгоритмов сортировки\n"
-          "              на случайных последовательностях")
-    printTable(
-            [size for size in sizes],
-            timesRandom,
-            names,
-            0)
-
-    plt.figure(figsize=(15.5, 9))
-    plt.subplots_adjust(hspace=0.5)
-    plt.subplot(2, 2, 1)
-    labels = ['вставками', 'перемешиванием', 'выбором']
-    for i, algTime in enumerate(timesIncrease):
+    labels = ['перебор', 'муравьиный']
+    for i, algTime in enumerate(times):
         if None not in algTime:
             plt.plot(sizes, algTime, label=labels[i])
-    plt.title("Отсортированные\nпоследовательности\n")
+
     plt.xlabel("Размер", fontsize=14)
     plt.ylabel("Время, ns", fontsize=14)
     plt.grid(True)
     plt.legend()
 
-    plt.subplot(2, 2, 2)
-    for i, algTime in enumerate(timesIncrease[:-1]):
-        if None not in algTime:
-            plt.plot(sizes, algTime, label=labels[i])
-    plt.title("Отсортированные\nпоследовательности (без выбора)\n")
-    plt.xlabel("Размер", fontsize=14)
-    plt.ylabel("Время, ns", fontsize=14)
-    plt.grid(True)
-    plt.legend()
-
-    plt.subplot(2, 2, 3)
-    for i, algTime in enumerate(timesDecrease):
-        if None not in algTime:
-            plt.plot(sizes, algTime, label=labels[i])
-    plt.title("Отсортированные в обратном\nпорядке последовательности\n")
-    plt.xlabel("Размер", fontsize=14)
-    plt.ylabel("Время, ns", fontsize=14)
-    plt.grid(True)
-    plt.legend()
-
-    plt.subplot(2, 2, 4)
-    for i, algTime in enumerate(timesRandom):
-        if None not in algTime:
-            plt.plot(sizes, algTime, label=labels[i])
-    plt.title("Случайные последовательности")
-    plt.xlabel("Размер", fontsize=14)
-    plt.ylabel("Время, ns", fontsize=14)
-    plt.grid(True)
-    plt.legend()
-
-    plt.get_current_fig_manager().window.move(0, 0)
     plt.show()
 
 
@@ -185,7 +129,8 @@ def getAnswer():
 
 if __name__ == "__main__":
     printGreeting()
-    menuFuncs = [lambda: True, singleExperiment, massExperiments, wrongAnswer]
+    menuFuncs = [lambda: True, singleExperiment, massExperiments, 
+                 parametrization, wrongAnswer]
 
     answer = 1
     while answer:
