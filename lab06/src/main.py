@@ -6,6 +6,7 @@ from prettytable import PrettyTable
 from colored import fg, attr
 
 import brute_force
+import ants
 
 from print_utils import *
 
@@ -63,6 +64,21 @@ def singleExperiment():
         print("Тур с минимальной стоимостью:")
         printTour(res[0])
         print("Стоимость: ", res[1])
+
+    try:
+        alpha = float(input("Введите вес следа феромона α: "))
+        evarpolation = float(input(
+                             "Введите коэффициент испарения феромона p: "))
+        daysNum = int(input("Введите количество дней: "))
+    except:
+        print("%sНеверный ввод!%s" % (fg('red'), attr(0)))
+        return
+
+    res = ants.salesman(graph, alpha, evarpolation, daysNum)
+    print("Муравьиный алгоритм")
+    print("Тур с минимальной стоимостью:")
+    printTour(res[0])
+    print("Стоимость: ", res[1])
 
 
 def massExperiments():
