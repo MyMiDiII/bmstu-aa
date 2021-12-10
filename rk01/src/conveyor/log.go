@@ -16,7 +16,8 @@ type logRow struct {
 	end        time.Duration
 }
 
-func PrintLog(full time.Duration, q *Queue, needSort bool, needTable bool) {
+func PrintLog(full time.Duration, q *Queue, needSort bool,
+	needTable bool) (time.Duration, time.Duration, time.Duration) {
 	reqTime1 := time.Duration(0)
 	reqTime2 := time.Duration(0)
 	reqTime3 := time.Duration(0)
@@ -94,7 +95,13 @@ func PrintLog(full time.Duration, q *Queue, needSort bool, needTable bool) {
 	fullLine2Time := log[q.capacity*2-1].end - log[q.capacity].start
 	fullLine3Time := log[q.capacity*3-1].end - log[q.capacity*2].start
 
-	fmt.Println("Время простоя 1 ленты:", fullLine1Time-reqTime1)
-	fmt.Println("Время простоя 2 ленты:", fullLine2Time-reqTime2)
-	fmt.Println("Время простоя 3 ленты:", fullLine3Time-reqTime3)
+	downTime1 := fullLine1Time - reqTime1
+	downTime2 := fullLine2Time - reqTime2
+	downTime3 := fullLine3Time - reqTime3
+
+	fmt.Println("Время простоя 1 ленты:", downTime1)
+	fmt.Println("Время простоя 2 ленты:", downTime2)
+	fmt.Println("Время простоя 3 ленты:", downTime3)
+
+	return downTime1, downTime2, downTime3
 }

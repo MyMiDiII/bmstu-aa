@@ -1,6 +1,7 @@
 package conveyor
 
 import (
+	"fmt"
 	"testing"
 	"time"
 )
@@ -29,9 +30,23 @@ func TestDeltas(t *testing.T) {
 	for i := 10; i < 920; i += 100 {
 		t.Log("delta = ", i)
 		avgDeltaTimes := [...]int{i, i, i}
-		q := GenerateRequests(reqNum, avgTimes, avgDeltaTimes)
-		res, gotTime := ParallelConveyor(q)
-		PrintLog(gotTime, res, true, false)
+
+		sumTime1 := time.Duration(0)
+		sumTime2 := time.Duration(0)
+		sumTime3 := time.Duration(0)
+
+		for j := 0; j < 5; j++ {
+			q := GenerateRequests(reqNum, avgTimes, avgDeltaTimes)
+			res, gotTime := ParallelConveyor(q)
+			t1, t2, t3 := PrintLog(gotTime, res, true, false)
+			sumTime1 += t1
+			sumTime2 += t2
+			sumTime3 += t3
+		}
+
+		fmt.Println("Среднее время простоя 1 ленты:", sumTime1/5)
+		fmt.Println("Среднее время простоя 2 ленты:", sumTime2/5)
+		fmt.Println("Среднее время простоя 3 ленты:", sumTime3/5)
 	}
 }
 
