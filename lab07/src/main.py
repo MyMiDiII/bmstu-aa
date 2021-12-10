@@ -39,10 +39,21 @@ def printMenu():
 def singleExperiment(myDict):
     name = input('Введите название игры: ')
 
-    print(myDict.bruteForce(name))
-    print(myDict.binSearch(name))
-    #print(myDict.segSearch(name))
-    
+    print("%sПолный перебор%s" % (fg('blue'), attr(0)))
+    res, compNum = myDict.bruteForce(name)
+    printRes(res, name)
+    print("Количество сравнений:", compNum)
+
+    print("%sБинарный поиск%s" % (fg('blue'), attr(0)))
+    res, compNum = myDict.binSearch(name)
+    printRes(res, name)
+    print("Количество сравнений:", compNum)
+
+    print("%sСегментация словаря%s" % (fg('blue'), attr(0)))
+    res, compNum = myDict.segSearch(name)
+    printRes(res, name)
+    print("Количество сравнений:", compNum)
+
 
 def massExperiments():
     sizes = [x for x in range(2, 11)]
@@ -91,9 +102,10 @@ def getAnswer():
 
 
 if __name__ == "__main__":
+    printGreeting()
+    print("Загрузка словаря...")
     myDict = Dictionary(DATADIR + 'games.csv')
 
-    printGreeting()
     menuFuncs = [lambda: True, singleExperiment, massExperiments, wrongAnswer]
     args = [[], [myDict], [myDict], []]
 
