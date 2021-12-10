@@ -52,7 +52,6 @@ class Dictionary:
                     freqVals[j][1] += 1
 
         freqVals.sort(key=lambda el: el[1], reverse=True)
-        print(freqVals)
 
         self.segments = [(freqVal[0], {'keys':[], 'vals':[]})
                             for freqVal in freqVals]
@@ -140,3 +139,9 @@ class Dictionary:
                 return vals, compNum
 
         return None, compNum
+
+    def getKeys(self):
+        return self.keys
+
+    def getVals(self):
+        return self.values

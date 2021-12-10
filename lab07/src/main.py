@@ -5,8 +5,12 @@ from colored import fg, attr
 from dictionary import Dictionary
 
 from utils import *
+from experiments import getTimes, getComps
 
 DATADIR = './data/'
+FULL_COMB_SEARCH = 1
+BIN_SEARCH = 2
+SEGM_SEARCH = 3
 
 def printInfo():
     print("Сравнение алгоритмов поиска в словаре")
@@ -30,7 +34,8 @@ def printMenu():
     print("МЕНЮ")
     print()
     print("1 -- поиск;")
-    print("2 -- сравнение различных алгоритмов;")
+    print("2 -- сравнение различных алгоритмов по времени;")
+    print("3 -- сравнение различных алгоритмов по количеству сравнений;")
     print("0 -- выход")
     print()
     print("Выбор:")
@@ -55,37 +60,65 @@ def singleExperiment(myDict):
     print("Количество сравнений:", compNum)
 
 
-def massExperiments():
-    sizes = [x for x in range(2, 11)]
+def massExperimentsTime(myDict):
+    keys = myDict.getKeys()
+    inds = [i + 1 for i in range(len(keys))]
     funcs = [
-            brute_force.salesman,
-            ants.salesman
+            myDict.bruteForce,
+            myDict.binSearch,
+            myDict.segSearch
             ]
-    args  = [
-            [],
-            [0.5, 0.5, 250]
-            ]
-    times = getTimes(funcs, args, sizes)
 
-    print()
-    names = [
-            'Размер',
-            'Перебор, нс',
-            'Муравьиный, нс',
-            ]
-    print("Таблица зависимостей времени работы от количества городов")
-    printTable(sizes, times, names, 0)
-    saveTableAsCSV(sizes, times)
+    times = getTimes(funcs, keys)
 
-    labels = ['перебор', 'муравьиный']
+    labels = ['бинарный поиск', 'сегментация']
+
     for i, algTime in enumerate(times):
         if None not in algTime:
-            plt.plot(sizes, algTime, label=labels[i])
+            plt.plot(inds, algTime, label=labels[i])
 
-    plt.xlabel("Размер", fontsize=14)
+    plt.xlabel("Индекс ключа", fontsize=14)
     plt.ylabel("Время, ns", fontsize=14)
     plt.grid(True)
     plt.legend()
+
+    plt.show()
+
+
+def massExperimentsComp(myDict):
+    keys = myDict.getKeys()
+    inds = [i + 1 for i in range(len(keys))]
+    funcs = [
+            myDict.bruteForce,
+            myDict.binSearch,
+            myDict.segSearch
+            ]
+    algs = [
+            'перебор',
+            'бинарный',
+            'сегментация'
+           ]
+
+    comps = getComps(funcs, keys)
+
+
+    for j in range(3):
+        fig, ax = plt.subplots(2, 1)
+
+        ax[0].bar(inds, comps[j], color='c')
+        ax[0].set(title=algs[j])
+
+        sortComps = sorted(comps[j], reverse=True)
+
+        ax[1].bar(inds, sortComps, color='c')
+        ax[1].set(title=algs[j] + '(по убыванию)')
+        
+        for i in range(2):
+            ax[i].set_xlabel("Индекс ключа")
+            ax[i].set_ylabel("Количество сравнений")
+
+        plt.subplots_adjust(hspace=0.5)
+        plt.get_current_fig_manager().window.showMaximized()
 
     plt.show()
 
@@ -106,8 +139,9 @@ if __name__ == "__main__":
     print("Загрузка словаря...")
     myDict = Dictionary(DATADIR + 'games.csv')
 
-    menuFuncs = [lambda: True, singleExperiment, massExperiments, wrongAnswer]
-    args = [[], [myDict], [myDict], []]
+    menuFuncs = [lambda: True, singleExperiment, massExperimentsTime,
+                 massExperimentsComp, wrongAnswer]
+    args = [[], [myDict], [myDict], [myDict], []]
 
     answer = 1
     while answer:
