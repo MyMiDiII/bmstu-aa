@@ -77,7 +77,7 @@ func PrintLog(full time.Duration, q *Queue, needSort bool,
 
 	if needTable {
 		table := tablewriter.NewWriter(os.Stdout)
-		table.SetHeader([]string{"№", "Stage", "Begin", "End"})
+		table.SetHeader([]string{"#", "Stage", "Begin", "End"})
 
 		for _, v := range log {
 			f := fmt.Sprintf("%v", v.requestNum)
