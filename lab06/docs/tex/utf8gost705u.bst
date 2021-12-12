@@ -86,7 +86,7 @@ FUNCTION {output.nonnull}
     { ", " * write$ }
     { output.state after.block =
         { add.period$ write$
-          " " " " *  write$
+          " " "--- " *  write$
           newline$
           "\newblock " write$
         }
