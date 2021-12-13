@@ -45,6 +45,8 @@
 \mdfdefinestyle{mymdstyle}{
     innerleftmargin=0mm,
     innerrightmargin=0mm,
+    innertopmargin=-5pt,
+    innerbottommargin=-9pt,
     splittopskip=\baselineskip,
     hidealllines=true,
     middleextra={
@@ -70,6 +72,14 @@
         ]{../../src/#4}
         \end{lstinputlisting}
     \end{minipage}
+}
+
+\newcommand{\mybreaklisting}[4]{
+    \begin{mdlisting}
+        \captionsetup{justification=raggedright,singlelinecheck=off}
+        \lstinputlisting[label=lst:#2, caption=#1,
+        linerange=#3]{../../src/#4}
+    \end{mdlisting}
 }
 
 % Images

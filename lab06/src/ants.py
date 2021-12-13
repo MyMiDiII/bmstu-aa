@@ -98,10 +98,9 @@ def salesman(graph, alpha, evarpolation, daysNum):
 
     if num <= 1:
         return [0] if num else [], 0
-    Q = findCostOrder(graph)
     
+    Q = findCostOrder(graph)
     vis, phero = getEdgeCoefs(graph)
-
     tour = []
     minCost = float("inf")
 
