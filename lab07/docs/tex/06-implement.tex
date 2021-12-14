@@ -37,32 +37,22 @@ time\cite{time}.
 
 В данном подразделе представлены листинги кода алгоритмов:
 \begin{itemize}[]
-    \item поиск полным перебором (листинг \ref{lst:});
-    \item реализация перестановки букв в каждом слове в обратном
-          порядке (листинг \ref{lst:rev});
-    \item реализация шифра Веженера (листинг \ref{lst:Vegenere});
-    \item последовательная реализация конвейера (листинг \ref{lst:LinConv});
-    \item параллельная реализация конвейера (листинг \ref{lst:ParConv}).
+    \item поиск полным перебором (листинг \ref{lst:bf});
+    \item бинарный поиск (листинги \ref{lst:sort}-\ref{lst:bin});
+    \item частотный анализ (листинги \ref{lst:gseg}-\ref{lst:binseg}).
 \end{itemize}
 
-%\mylisting{Функция генерации сообщений}{gen}{33-36}{conveyor/encription.go}
-%
-%\mylisting{Функции перестановки букв в каждом слове в обратном
-%порядке}{rev}{38-54}{conveyor/encription.go}
-%
-%\begin{mdlisting}
-%    \captionsetup{justification=raggedright,singlelinecheck=off}
-%    \lstinputlisting[label=lst:Vegenere, caption=Функция шифра Веженера,
-%    linerange=56-76]{../../src/conveyor/encription.go}
-%\end{mdlisting}
-%
-%\mylisting{Последовательная обработка
-%заявок}{LinConv}{7-29}{conveyor/conveyor.go}
-%\begin{mdlisting}
-%    \captionsetup{justification=raggedright,singlelinecheck=off}
-%    \lstinputlisting[label=lst:ParConv, caption=Конвейерная обработка заявок,
-%    linerange=31-94]{../../src/conveyor/conveyor.go}
-%\end{mdlisting}
+\mylisting{Поиск полным перебором}{bf}{73-82}{dictionary.py}
+
+\mylisting{Сортировка для бинарного поиска}{sort}{39-43}{dictionary.py}
+
+\mybreaklisting{Бинарный поиск}{bin}{84-102}{dictionary.py}
+
+\mylisting{Разбиение словаря на сегменты}{gseg}{45-65}{dictionary.py}
+
+\mylisting{Поиск в словаре, разбитом на сегменты}{seg}{127-141}{dictionary.py}
+
+\mylisting{Бинарный поиск в сегменте}{binseg}{104-124}{dictionary.py}
 
 \section{Описание тестирования}
 
@@ -75,36 +65,21 @@ time\cite{time}.
         \caption{\label{tab:tests}Функциональные тесты}
         \begin{tabular}{|c|c|}
 			\hline
-            \textbf{Количество заявок} & \textbf{Ожидаемый результат} \\ [2mm]
-            \hline
-            -1
-            &
-            Сообщение об ошибке
-            \\
-            \hline
-            0
-            &
-            Сообщение об ошибке
-            \\
+            \textbf{Ключ} & \textbf{Ожидаемый результат} \\ [2mm]
             \hline
             j
             &
-            Сообщение об ошибке
+            Нет такой игры!
             \\
             \hline
-            10
+            Munchkin
             &
-            Лог работы каждого из алгоритмов
+            \{2001, 41605, 5.9\}
             \\
             \hline
-            100
+            1001
             &
-            Лог работы каждого из алгоритмов
-            \\
-            \hline
-            1000
-            &
-            Лог работы каждого из алгоритмов
+            \{1900, 31, 6.43\}
             \\
             \hline
 		\end{tabular}
@@ -114,6 +89,6 @@ time\cite{time}.
 
 \section{Вывод}
 
-В данном разделе были реализованы последовательный и конвейрный алгоритмы
-поэтапной генерации зашифрованных сообщений. Также были написаны
-тесты для каждого класса эквивалентности, описанного в конструкторском разделе.
+В данном разделе были реализованы алгоритмы поиска в словаре: перебором,
+бинарный и частотный анализ. Также были написаны тесты для каждого класса
+эквивалентности, описанного в конструкторском разделе.
