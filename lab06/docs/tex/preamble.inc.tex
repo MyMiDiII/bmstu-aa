@@ -128,6 +128,7 @@
 % Tabulars
 \usepackage{threeparttable}
 \usepackage{csvsimple}
+\usepackage{longtable,ltcaption,booktabs}
 \newcommand{\specialcell}[2][c]{%
   \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
 
@@ -140,8 +141,8 @@
             \caption{\label{tab:#1}#2}
             \begin{tabular}{|r|r|r|r|}
                 \hline
-                \bfseries Размер & \bfseries Вставками, нс &
-                \bfseries Перемешиванием, нс & \bfseries Выбором, нс
+                \bfseries $\alpha$ & \bfseries $p$ &
+                \bfseries Число итераций & \bfseries Ошибка 
                 \csvreader{../data/csv/#3.csv}{}
                 {\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
                 \\\hline
