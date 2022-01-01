@@ -1,0 +1,32 @@
+\chapter*{\hypertarget{apB}{}Приложение Б\\Параметризация для класса данных 2}
+\addcontentsline{toc}{chapter}{Приложение Б Параметризация для класса данных 2}
+
+\renewcommand{\thetable}{\textmd{Б.1}}
+
+\noindent
+\begin{center}
+    \captionsetup{format=hang,justification=raggedright,
+                  singlelinecheck=off,width=8.4cm}
+    \begin{longtable}[c]{|r|r|r|r|}
+        \caption{Параметризация~~~~~~для класса~~~~~~~данных~~~~~~~с
+                 большим~~~~~~~разбросом значений}
+        \\\hline
+        $\alpha$ & $p$ & Число итераций & Ошибка \\
+        \hline
+        \endfirsthead
+        \captionsetup{labelsep=none}
+        \caption[]{ (продолжение)}\\
+        \hline
+        $\alpha$ & $p$ & Число итераций & Ошибка \\
+        \endhead
+        \csvreader[
+            late after line=\\\hline,
+            late after last line=,
+            before reading={\catcode`\#=12},
+            after reading={\catcode`\#=6}
+        ]
+        {../data/csv/highParam.csv}{1=\colo,2=\coltw,3=\colt,4=\colf}
+        {\colo & \coltw & \colt & \colf}
+        \\\hline
+    \end{longtable}
+\end{center}

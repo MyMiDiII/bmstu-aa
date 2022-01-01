@@ -1,0 +1,30 @@
+\chapter*{\hypertarget{apA}{}Приложение А\\Параметризация для класса данных 1}
+\addcontentsline{toc}{chapter}{Приложение А Параметризация для класса данных 1}
+
+\renewcommand{\thetable}{\textmd{A.1}}
+
+\noindent
+\captionsetup{format=hang,justification=raggedright,
+              singlelinecheck=off,width=8.4cm}
+\begin{longtable}[c]{|r|r|r|r|}
+    \caption[(продолжение)]{Параметризация~~~~~~для класса данных с малым
+    разбросом значений}
+    \\\hline
+    $\alpha$ & $p$ & Число итераций & Ошибка \\
+    \hline
+    \endfirsthead
+    \captionsetup{labelsep=none}
+    \caption[]{ (продолжение)}\\
+    \hline
+    $\alpha$ & $p$ & Число итераций & Ошибка \\
+    \endhead
+    \csvreader[
+        late after line=\\\hline,
+        late after last line=,
+        before reading={\catcode`\#=12},
+        after reading={\catcode`\#=6}
+    ]
+    {../data/csv/lowParam.csv}{1=\colo,2=\coltw,3=\colt,4=\colf}
+    {\colo & \coltw & \colt & \colf}
+    \\\hline
+    \end{longtable}
